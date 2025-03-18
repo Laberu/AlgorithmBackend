@@ -4,7 +4,7 @@ global:
 scrape_configs:
   - job_name: "backend-ts"
     static_configs:
-      - targets: ["backend-ts:3000"]  # Adjust if needed
+      - targets: ["backend-ts:4000"]  # Adjust if needed
   
   - job_name: "backend-py"
     static_configs:
