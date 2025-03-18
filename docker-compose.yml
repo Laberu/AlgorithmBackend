@@ -14,8 +14,8 @@ services:
   backend-ts:
     build: ./backend-ts
     ports:
-      - "3005:3005"  # API Service
-      - "3006:3006"  # Metrics endpoint for Prometheus
+      - "4000:4000"  # API Service
+      - "4001:4001"  # Metrics endpoint for Prometheus
     networks:
       - backend_network
 networks:
