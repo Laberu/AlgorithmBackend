@@ -14,35 +14,10 @@ services:
   backend-ts:
     build: ./backend-ts
     ports:
-      - "3000:3000"  # API Service
-      - "3001:3001"  # Metrics endpoint for Prometheus
+      - "3005:3005"  # API Service
+      - "3006:3006"  # Metrics endpoint for Prometheus
     networks:
       - backend_network
-
-  prometheus:
-    image: prom/prometheus:latest
-    volumes:
-      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
-    ports:
-      - "9090:9090"
-    networks:
-      - backend_network
-
-  grafana:
-    image: grafana/grafana:latest
-    container_name: grafana
-    ports:
-      - "3002:3000"  # Grafana UI
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin  # Change this in production
-    depends_on:
-      - prometheus
-    networks:
-      - backend_network
-    volumes:
-      - ./grafana-data:/var/lib/grafana  # Persist Grafana data
-
-
 networks:
   backend_network:
     driver: bridge
