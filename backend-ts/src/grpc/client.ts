@@ -19,7 +19,7 @@ const grpcObject = grpc.loadPackageDefinition(packageDefinition);
 const AlgorithmProto = grpcObject.algorithm as any;
 
 // ✅ Use environment variable for gRPC server address
-const GRPC_HOST = process.env.GRPC_HOST || "localhost:50051";
+const GRPC_HOST = process.env.GRPC_HOST || "backend-py:50051";
 
 // ✅ Create gRPC client
 const client = new AlgorithmProto.AlgorithmService(
