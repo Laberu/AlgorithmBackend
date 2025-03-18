@@ -133,7 +133,7 @@ def serve():
 
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     algorithm_pb2_grpc.add_AlgorithmServiceServicer_to_server(AlgorithmService(), server)
-    server.add_insecure_port(f"[::]:{GRPC_PORT}")
+    server.add_insecure_port(f"127.0.0.1:{GRPC_PORT}")
 
     # ✅ Start Worker Pool
     global worker_pool
