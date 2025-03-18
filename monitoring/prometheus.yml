@@ -1,0 +1,23 @@
+global:
+  scrape_interval: 5s  # How often to scrape metrics
+
+scrape_configs:
+  - job_name: "backend-ts"
+    static_configs:
+      - targets: ["backend-ts:3000"]  # Adjust if needed
+  
+  - job_name: "backend-py"
+    static_configs:
+      - targets: ["backend-py:8000"]  # Exposing Prometheus metrics from backend-py
+  
+  - job_name: "docker"
+    static_configs:
+      - targets: ["host.docker.internal:9323"]  # Monitor Docker engine
+
+  - job_name: "node-exporter"
+    static_configs:
+      - targets: ["node-exporter:9100"]  # System-level metrics
+
+  - job_name: "worker_pool"
+    static_configs:
+      - targets: ["backend-py:8000"]

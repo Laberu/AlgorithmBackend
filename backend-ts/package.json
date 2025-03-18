@@ -1,0 +1,36 @@
+{
+  "name": "backend-ts",
+  "version": "1.0.0",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "dev": "ts-node src/server.ts",
+    "testClient": "npx ts-node src/grpc/testClient.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@fastify/multipart": "^9.0.3",
+    "@grpc/grpc-js": "^1.12.6",
+    "@grpc/proto-loader": "^0.7.13",
+    "dotenv": "^16.4.7",
+    "fastify": "^5.2.1",
+    "fastify-metrics": "^12.1.0",
+    "fastify-multipart": "^5.4.0",
+    "fastify-plugin": "^5.0.1",
+    "node-fetch": "^3.3.2",
+    "pg": "^8.13.3",
+    "redis": "^4.6.10"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.3",
+    "@types/node": "^22.13.9",
+    "@types/pg": "^8.11.11",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  }
+}

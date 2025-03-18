@@ -1,0 +1,5 @@
+.env
+\storage
+*.zip
+\temp
+\node_modules

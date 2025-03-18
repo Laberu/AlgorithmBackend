@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package algorithm;
+
+//Request for file upload
+message FileChunk {
+  bytes content = 1;
+  string job_id = 2;
+}
+
+//Response for upload success
+message UploadResponse {
+  string job_id = 1;
+  string status = 2;
+}
+
+//Request for checking job status
+message JobStatusRequest {
+  string job_id = 1;
+}
+
+//Response with job progress
+message JobStatusResponse {
+  string job_id = 1;
+  string status = 2; // queued, processing, completed
+  int32 progress = 3; // 0-100%
+  string message = 4;
+}
+
+//Request for downloading a file
+message DownloadRequest {
+  string job_id = 1;
+}
+
+//Streaming response for sending file data
+message FileChunkResponse {
+  bytes content = 1;
+}
+
+//Response for confirming delete
+message ConfirmDeleteResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+service AlgorithmService {
+  //Upload a file
+  rpc UploadFile (stream FileChunk) returns (UploadResponse);
+  
+  //Get job status
+  rpc GetJobStatus (JobStatusRequest) returns (JobStatusResponse);
+
+  //Download processed file
+  rpc DownloadFile (DownloadRequest) returns (stream FileChunkResponse);
+
+  //Confirm delete after download
+  rpc ConfirmDelete (DownloadRequest) returns (ConfirmDeleteResponse);
+}

@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  backend-py:
+    build: ./backend-py
+    ports:
+      - "50051:50051"  # gRPC service
+      - "8000:8000"  # Metrics endpoint for Prometheus
+    environment:
+      - PROMETHEUS_METRICS=true
+    networks:
+      - backend_network
+
+  backend-ts:
+    build: ./backend-ts
+    ports:
+      - "3000:3000"  # API Service
+      - "3001:3001"  # Metrics endpoint for Prometheus
+    networks:
+      - backend_network
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - backend_network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3002:3000"  # Grafana UI
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin  # Change this in production
+    depends_on:
+      - prometheus
+    networks:
+      - backend_network
+    volumes:
+      - ./grafana-data:/var/lib/grafana  # Persist Grafana data
+
+
+networks:
+  backend_network:
+    driver: bridge
