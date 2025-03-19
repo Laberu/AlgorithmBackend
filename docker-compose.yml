@@ -10,14 +10,7 @@ services:
       - PROMETHEUS_METRICS=true
     networks:
       - backend_network
-
-  backend-ts:
-    build: ./backend-ts
-    ports:
-      - "4000:3000"  # API Service
-      - "4001:4001"  # Metrics endpoint for Prometheus
-    networks:
-      - backend_network
+      
 networks:
   backend_network:
     driver: bridge

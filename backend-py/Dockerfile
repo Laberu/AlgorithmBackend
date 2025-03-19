@@ -23,4 +23,4 @@ COPY . .
 EXPOSE 50051
 
 # Run gRPC server
-CMD ["python", "-u", "grpc_server.py"]
+CMD ["uvicorn", "rest_server:app", "--host", "0.0.0.0", "--port", "50051"]

@@ -3,3 +3,7 @@ grpcio==1.70.0
 grpcio-tools==1.70.0
 python-dotenv==1.0.1 
 prometheus_client==0.21.1
+fastapi
+uvicorn
+pydantic
+python-multipart

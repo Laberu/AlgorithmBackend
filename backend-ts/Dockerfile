@@ -29,7 +29,7 @@ RUN npx tsc -v  # ✅ This checks if TypeScript is installed
 RUN npm run build  # ✅ This compiles TypeScript
 
 # Expose port
-EXPOSE 4000
+EXPOSE 3000
 
 # Start the server
 CMD ["node", "dist/server.js"]
