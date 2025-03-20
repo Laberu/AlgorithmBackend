@@ -33,7 +33,7 @@ def generate_job_id() -> str:
     return f"{int(time.time() * 1000)}-{uuid.uuid4().hex[:8]}"
 
 
-@app.post("/upload/")
+@app.post("/upload")
 async def upload_file(file: UploadFile = File(...)):
     """Receives file via REST and queues it for processing with an auto-generated job ID."""
     try:
