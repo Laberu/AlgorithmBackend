@@ -83,12 +83,31 @@ async def get_status(job_id: str):
 
 @app.get("/download/{job_id}")
 async def download_file(job_id: str):
-    """Handles file download via REST."""
+    """Handles file download via REST and updates status to finished."""
     job_folder = os.path.join(STORAGE_PATH, job_id)
     output_zip = os.path.join(job_folder, "final_output.zip")
+    status_file = os.path.join(job_folder, "status.json")
 
     if not os.path.exists(output_zip):
         return {"error": "File not found or job not completed yet."}
+
+    # ✅ Update status to finished
+    if os.path.exists(status_file):
+        try:
+            with open(status_file, "r") as f:
+                status_data = json.load(f)
+
+            status_data["status"] = "finished"
+            status_data["progress"] = 100
+            status_data["message"] = "Download completed."
+
+            with open(status_file, "w") as f:
+                json.dump(status_data, f, indent=4)
+
+            print(f"✅ Job {job_id} marked as finished after download.")
+
+        except Exception as e:
+            print(f"⚠️ Failed to update status for job {job_id}: {e}")
 
     return FileResponse(
         path=output_zip,
