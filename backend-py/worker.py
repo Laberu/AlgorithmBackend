@@ -4,9 +4,10 @@ import threading
 import json
 import time
 from prometheus_client import Gauge, Counter, Histogram
-from algorithm.mock_algorithm import MockAlgorithm
+from algorithm.algorithm import MeshroomReconstructor
 
 job_queue = queue.Queue()
+STORAGE_PATH = os.getenv("STORAGE_PATH", "./storage")
 
 # ✅ Prometheus Metrics
 job_queue_length = Gauge("job_queue_length", "Number of jobs waiting in the queue")
@@ -55,8 +56,8 @@ class WorkerPool:
         os.makedirs(output_dir, exist_ok=True)
 
         # ✅ Run the Mocking Algorithm
-        mock_algo = MockAlgorithm(input_zip, output_dir)
-        mock_algo.run()
+        algo = MeshroomReconstructor()
+        algo.reconstruct(input_zip, output_dir)
 
         # ✅ Ensure the final status is written properly
         time.sleep(1)  # Small delay to allow filesystem sync
@@ -77,6 +78,6 @@ class WorkerPool:
 
 # ✅ Function to add jobs to the queue
 def add_job(job_id, input_zip):
-    job_folder = os.path.join("/app/storage", job_id)
+    job_folder = os.path.join(STORAGE_PATH, job_id)
     job_queue.put((job_id, input_zip, job_folder))
     job_queue_length.set(job_queue.qsize())  # Update Prometheus metric

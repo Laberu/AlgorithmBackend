@@ -17,7 +17,8 @@ app = FastAPI()
 start_http_server(8000)
 
 # ✅ Storage Path
-STORAGE_PATH = os.getenv("STORAGE_PATH", "/app/storage")
+STORAGE_PATH = os.getenv("STORAGE_PATH", "./storage")
+
 NUM_WORKERS = int(os.getenv("NUM_WORKERS", "4"))  # Get from .env (Default 4 workers)
 
 # ✅ Start Worker Pool (Important: This was missing before!)
