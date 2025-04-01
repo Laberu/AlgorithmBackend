@@ -4,7 +4,8 @@ import threading
 import json
 import time
 from prometheus_client import Gauge, Counter, Histogram
-from algorithm.algorithm import MeshroomReconstructor
+# from algorithm.algorithm import MeshroomReconstructor
+from algorithm.mock_algorithm import MockAlgorithm
 
 job_queue = queue.Queue()
 STORAGE_PATH = os.getenv("STORAGE_PATH", "./storage")
@@ -56,8 +57,8 @@ class WorkerPool:
         os.makedirs(output_dir, exist_ok=True)
 
         # ✅ Run the Mocking Algorithm
-        algo = MeshroomReconstructor()
-        algo.reconstruct(input_zip, output_dir)
+        algo = MockAlgorithm(input_zip, output_dir)
+        algo.run()  # Run the algorithm
 
         # ✅ Ensure the final status is written properly
         time.sleep(1)  # Small delay to allow filesystem sync
